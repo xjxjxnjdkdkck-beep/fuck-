@@ -1,8 +1,8 @@
-FROM node:22-bookworm-slim
+FROM node:20-alpine
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@10.18.0 --activate
-COPY package.json pnpm-lock.yaml pnpm-
-RUN CI=1 pnpm install --frozen-lockfile
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install
 COPY . .
 RUN pnpm build
 ENV NODE_ENV=production
